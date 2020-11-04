@@ -46,28 +46,7 @@ Modify `optee_os/lib/libmbedtls/include/mbedtls_config_kernel.h`
 #define MBEDTLS_PEM_WRITE_C
 #define MBEDTLS_TLS_DEFAULT_ALLOW_SHA1_IN_CERTIFICATES
 ```
-Modify `optee_os/lib/libmbedtls/mbedtls/library/x509_crt.c `
-- Add the statement `MBEDTLS_X509_ID_FLAG( MBEDTLS_MD_SHA1 )` 
 
-
-```c=
-const mbedtls_x509_crt_profile mbedtls_x509_crt_profile_default =
-{
-#if defined(MBEDTLS_TLS_DEFAULT_ALLOW_SHA1_IN_CERTIFICATES)
-    /* Allow SHA-1 (weak, but still safe in controlled environments) */
-    //MBEDTLS_X509_ID_FLAG( MBEDTLS_MD_SHA1 ) |
-#endif
-    MBEDTLS_X509_ID_FLAG( MBEDTLS_MD_SHA1 ) |
-    /* Only SHA-2 hashes */
-    MBEDTLS_X509_ID_FLAG( MBEDTLS_MD_SHA224 ) |
-    MBEDTLS_X509_ID_FLAG( MBEDTLS_MD_SHA256 ) |
-    MBEDTLS_X509_ID_FLAG( MBEDTLS_MD_SHA384 ) |
-    MBEDTLS_X509_ID_FLAG( MBEDTLS_MD_SHA512 ),
-    0xFFFFFFF, /* Any PK alg    */
-    0xFFFFFFF, /* Any curve     */
-    2048,
-};
-```
 Modify `optee_os/lib/libmbedtls/sub.mk`
 - Add the two instructions (to make mbedtls support X509 and TLS).
 ```c=
