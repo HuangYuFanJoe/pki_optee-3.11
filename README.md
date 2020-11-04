@@ -44,6 +44,7 @@ Modify `optee_os/lib/libmbedtls/include/mbedtls_config_kernel.h`
 #define MBEDTLS_CERTS_C
 #define MBEDTLS_PEM_PARSE_C
 #define MBEDTLS_PEM_WRITE_C
+#define MBEDTLS_TLS_DEFAULT_ALLOW_SHA1_IN_CERTIFICATES
 ```
 Modify `optee_os/lib/libmbedtls/mbedtls/library/x509_crt.c `
 - Add the statement `MBEDTLS_X509_ID_FLAG( MBEDTLS_MD_SHA1 )` 
